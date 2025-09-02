@@ -3,8 +3,8 @@ package ginutils
 import (
 	"fmt"
 
+	"github.com/dan-sherwin/go-utilities"
 	"github.com/gin-gonic/gin"
-	"go.corp.spacelink.com/sdks/go/utilities"
 )
 
 // ExtractJwtClaimsFromContext extracts JWT claims from the request context by parsing the Authorization header and decoding the token using the provided secret key. Returns a map of claims or an error if token parsing fails.

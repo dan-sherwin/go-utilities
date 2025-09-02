@@ -14,16 +14,16 @@ A small, focused collection of helper functions and type shortcuts frequently us
 - Common type aliases
 
 This repository contains:
-- Root package: go.corp.spacelink.com/sdks/go/utilities
-- Subpackage: go.corp.spacelink.com/sdks/go/utilities/ginutils (gin-only JWT conveniences)
+- Root package: github.com/dan-sherwin/go-utilities
+- Subpackage: github.com/dan-sherwin/go-utilities/ginutils (gin-only JWT conveniences)
 
 ## Installation
 
 - Root package:
-  go get go.corp.spacelink.com/sdks/go/utilities
+  go get github.com/dan-sherwin/go-utilities
 
 - Gin helpers:
-  go get go.corp.spacelink.com/sdks/go/utilities/ginutils
+  go get github.com/dan-sherwin/go-utilities/ginutils
 
 Go version: see go.mod (currently go 1.23).
 
@@ -185,7 +185,7 @@ Below is a complete list of exported functions and types with concise descriptio
 
 Helpers for extracting JWTs from gin-gonic request contexts.
 
-Import path: go.corp.spacelink.com/sdks/go/utilities/ginutils
+Import path: github.com/dan-sherwin/go-utilities/ginutils
 
 - func ExtractJwtClaimsFromContext(c *gin.Context, secretKey []byte) (map[string]interface{}, error)
   Reads Authorization: Bearer <token> and returns validated claims.
