@@ -219,6 +219,3 @@ Example:
 - Prefer generic helpers where it improves ergonomics without obscuring types.
 - Add examples to this README when adding new exported functions.
 
-## License
-
-Internal use within Spacelink Corp. Consult repository policy for redistribution.
