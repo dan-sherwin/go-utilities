@@ -10,6 +10,7 @@ A small, focused collection of helper functions and type shortcuts frequently us
 - Host/filesystem helpers
 - File utilities (MIME type)
 - Network helpers (ARP lookup)
+- Validation helpers (email, IP, URL, FQDN/hostname, phone, credit card Luhn, UUID, base64, hex colors, alphanumeric)
 - Database DSN helper and driver.Valuer utilities
 - Common type aliases
 
@@ -62,6 +63,14 @@ Go version: see go.mod (currently go 1.23).
   
   mac, err := utilities.GetMacAddressFromIp("192.168.1.20")
   
+- Validation helpers:
+  
+  utilities.IsEmail("alice@example.com")    // true
+  utilities.IsURL("https://example.com")    // true
+  utilities.IsCreditCard("4242 4242 4242 4242") // true (Luhn)
+  utilities.IsIPv4("192.168.1.1")          // true
+  utilities.IsUUID("550e8400-e29b-41d4-a716-446655440000") // true
+  
 - Gin integration:
   
   func handler(c *gin.Context) {
@@ -111,8 +120,20 @@ Below is a complete list of exported functions and types with concise descriptio
   Prints a []map[string]any, []map[string]string, or []utilities.StrMap as a table to stdout.
 - func PrintStructMap(obj any) error
   Treats any map's values as structs and prints a table.
+- func PrintSortedStructMap(obj any) error
+  Like PrintStructMap but sorts columns and rows for stable output.
 - func PrintStructTable(obj any) error
   Prints a struct or slice/array of structs (or pointers) as a table to stdout.
+- func PrintStringSlice(input any) error
+  Prints a slice of strings with index.
+- func PrintAnySlice(input any) error
+  Prints a slice of any type using fmt.Sprint.
+- func PrintMap(input any, headers ...string) error
+  Prints a single map with optional headers.
+- func PrintStringsTable(headers []string, rows [][]string) error
+  Renders arbitrary headers and rows.
+- func PrintSlice(input any) error
+  Prints a slice/array determined via reflection.
 
 ### JWT Helpers
 - func GenerateJWT(claims interface{}, duration time.Duration, secretKey []byte) (string, error)
@@ -142,6 +163,10 @@ Below is a complete list of exported functions and types with concise descriptio
 - func DirCreateIfNotExists(dir string) error
   mkdir -p behavior with 0755 on missing dirs.
 
+### Debug Helpers
+- func LitterCheckErr[T any](out T, err error) T
+  Dumps value with litter and logs an error if present, then returns out.
+
 ### File Helpers
 - func MimeTypeFromExtension(filename string) string
   Returns MIME by extension; defaults to application/octet-stream.
@@ -150,6 +175,36 @@ Below is a complete list of exported functions and types with concise descriptio
 - func GetMacAddressFromIp(ipAddress string) (string, error)
   Looks up MAC by IP using local ARP table.
 
+### Validation Helpers
+- func IsEmail(s string) bool
+  Valid email using net/mail; ensures domain is FQDN/hostname or IP.
+- func IsIP(s string) bool
+  IPv4 or IPv6 literal.
+- func IsIPv4(s string) bool
+  IPv4 literal only.
+- func IsIPv6(s string) bool
+  IPv6 literal only.
+- func IsMAC(s string) bool
+  Hardware address (MAC-48/EUI-64).
+- func IsURL(s string) bool
+  http/https URL with valid host (IPv4/IPv6/FQDN/hostname).
+- func IsFQDN(s string) bool
+  Fully-qualified domain name per common DNS label rules.
+- func IsHostname(s string) bool
+  Single-label hostnames, same label rules as FQDN labels.
+- func IsCreditCard(s string) bool
+  Digits with optional spaces/dashes, validated via Luhn checksum.
+- func IsPhone(s string) bool
+  Basic E.164 (+8..15 digits) or national digits (7..15).
+- func IsUUID(s string) bool
+  UUID v1–v5 canonical format.
+- func IsBase64(s string) bool
+  Base64 (padded or raw), ignoring whitespace.
+- func IsHexColor(s string) bool
+  #RGB, #RRGGBB, #RGBA, #RRGGBBAA (with or without #).
+- func IsAlphaNumeric(s string) bool
+  ASCII letters and digits only.
+
 ### Database Helpers
 - type DbDSNConfig struct { Server string; Port int; Name string; User string; Password string; SSLMode bool; TimeZone string }
   Source values for DSN generation.
@@ -157,6 +212,12 @@ Below is a complete list of exported functions and types with concise descriptio
   Assembles a postgres-style DSN from config.
 - func ToValuers[T driver.Valuer](in []T) []driver.Valuer
   Useful when building driver.Valuer slices (e.g., for WHERE IN bindings).
+
+### Map Helpers
+- func Merge[K comparable, V any](a, b map[K]V) map[K]V
+  Returns a new map with values from b overwriting a.
+- func MergeInto[K comparable, V any](a, b map[K]V)
+  Merges b into a in-place.
 
 ### Common Type Aliases
 - General maps

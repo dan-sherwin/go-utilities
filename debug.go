@@ -28,7 +28,7 @@ func init() {
 // LitterCheckErr logs an error if present, outputs a debug dump of the provided value using the litter library, and then returns the value.
 func LitterCheckErr[T any](out T, err error) T {
 	if err != nil {
-		slog.Error(fmt.Sprintf("*****DEBUG****** error encountered: %w", err))
+		slog.Error(fmt.Sprintf("*****DEBUG****** error encountered: %v", err))
 	}
 	litter.Dump(out)
 	return out
