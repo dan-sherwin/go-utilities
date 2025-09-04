@@ -26,3 +26,23 @@ func ExtractJwtClaimsFromContextInto(c *gin.Context, secretKey []byte, out inter
 	bearerToken := bearerHeader[7:]
 	return utilities.ExtractJwtClaimsInto(bearerToken, secretKey, out)
 }
+
+// ExtractCookieJwtClaimsFromContext retrieves JWT claims from a cookie named "cxjwt" in the provided Gin context.
+// The JWT is validated and parsed using the provided secret key.
+// It returns the claims as a map if successful, or an error if the process fails.
+func ExtractCookieJwtClaimsFromContext(c *gin.Context, secretKey []byte) (map[string]interface{}, error) {
+	token, err := c.Cookie("cxjwt")
+	if err != nil {
+		return nil, fmt.Errorf("Invalid credentials")
+	}
+	return utilities.ExtractJwtClaims(token, secretKey)
+}
+
+// ExtractCookieJwtClaimsFromContextInto retrieves a JWT from the "cxjwt" cookie in the provided gin.Context, validates it using the secretKey, and unmarshals the claims into the provided output struct. Returns an error if the cookie is not present or if validation/unmarshalling fails.
+func ExtractCookieJwtClaimsFromContextInto(c *gin.Context, secretKey []byte, out interface{}) error {
+	token, err := c.Cookie("cxjwt")
+	if err != nil {
+		return fmt.Errorf("Invalid credentials")
+	}
+	return utilities.ExtractJwtClaimsInto(token, secretKey, out)
+}

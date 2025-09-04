@@ -252,6 +252,10 @@ Import path: github.com/dan-sherwin/go-utilities/ginutils
   Reads Authorization: Bearer <token> and returns validated claims.
 - func ExtractJwtClaimsFromContextInto(c *gin.Context, secretKey []byte, out interface{}) error
   As above, but decodes into your struct.
+- func ExtractCookieJwtClaimsFromContext(c *gin.Context, secretKey []byte) (map[string]interface{}, error)
+  Reads Cookie token and returns validated claims.
+- func ExtractCookieJwtClaimsFromContextInto(c *gin.Context, secretKey []byte, out interface{}) error
+  As above, but decodes into your struct.
 
 Example:
 
