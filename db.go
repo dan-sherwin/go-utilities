@@ -4,6 +4,7 @@ import (
 	"database/sql/driver"
 	"encoding/json"
 	"fmt"
+
 	"gorm.io/datatypes"
 )
 
@@ -52,7 +53,7 @@ func ToValuers[T driver.Valuer](in []T) []driver.Valuer {
 	return out
 }
 
-func convertToJSONMap(input any) (datatypes.JSONMap, error) {
+func ConvertToJSONMap(input any) (datatypes.JSONMap, error) {
 	// Marshal the input to a JSON byte slice
 	bytes, err := json.Marshal(input)
 	if err != nil {
