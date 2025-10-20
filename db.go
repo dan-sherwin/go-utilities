@@ -60,9 +60,10 @@ func ConvertToJSONMap(input any) (datatypes.JSONMap, error) {
 		return nil, fmt.Errorf("failed to marshal to JSON: %w", err)
 	}
 
-	var jsonMap datatypes.JSONMap
+	jsonMap := datatypes.JSONMap{}
 	// Unmarshal the JSON bytes into the JSONMap
-	if err := json.Unmarshal(bytes, &jsonMap); err != nil {
+
+	if err := jsonMap.UnmarshalJSON(bytes); err != nil {
 		return nil, fmt.Errorf("failed to unmarshal to JSONMap: %w", err)
 	}
 
