@@ -51,9 +51,13 @@ func PrintMapArray(input any) error {
 		for _, k := range header {
 			values = append(values, fmt.Sprintf("%v", m[k]))
 		}
-		table.Append(values)
+		if err := table.Append(values); err != nil {
+			return err
+		}
 	}
-	table.Render()
+	if err := table.Render(); err != nil {
+		return err
+	}
 	return nil
 }
 
@@ -157,9 +161,13 @@ func PrintStructTable(obj any) error {
 		for _, fieldName := range fieldNames {
 			tableValues = append(tableValues, stringMap[fieldName])
 		}
-		table.Append(tableValues)
+		if err := table.Append(tableValues); err != nil {
+			return err
+		}
 	}
-	table.Render()
+	if err := table.Render(); err != nil {
+		return err
+	}
 	return nil
 }
 
@@ -183,9 +191,13 @@ func PrintStringSlice(input any) error {
 	table := tablewriter.NewWriter(os.Stdout)
 	table.Header([]string{"#", "Value"})
 	for i, s := range arr {
-		table.Append([]string{fmt.Sprintf("%d", i), s})
+		if err := table.Append([]string{fmt.Sprintf("%d", i), s}); err != nil {
+			return err
+		}
 	}
-	table.Render()
+	if err := table.Render(); err != nil {
+		return err
+	}
 	return nil
 }
 
@@ -207,9 +219,13 @@ func PrintAnySlice(input any) error {
 	table := tablewriter.NewWriter(os.Stdout)
 	table.Header([]string{"#", "Value"})
 	for i, val := range arr {
-		table.Append([]string{fmt.Sprintf("%d", i), fmt.Sprintf("%v", val)})
+		if err := table.Append([]string{fmt.Sprintf("%d", i), fmt.Sprintf("%v", val)}); err != nil {
+			return err
+		}
 	}
-	table.Render()
+	if err := table.Render(); err != nil {
+		return err
+	}
 	return nil
 }
 
@@ -254,9 +270,13 @@ func PrintMap(input any, headers ...string) error {
 	table.Header([]string{keyHeader, valueHeader})
 	for _, p := range pairs {
 		val := v.MapIndex(p.k)
-		table.Append([]string{p.kStr, fmt.Sprintf("%v", val.Interface())})
+		if err := table.Append([]string{p.kStr, fmt.Sprintf("%v", val.Interface())}); err != nil {
+			return err
+		}
 	}
-	table.Render()
+	if err := table.Render(); err != nil {
+		return err
+	}
 	return nil
 }
 
@@ -279,9 +299,13 @@ func PrintStringsTable(headers []string, rows [][]string) error {
 		table.Header(headers)
 	}
 	for _, r := range rows {
-		table.Append(r)
+		if err := table.Append(r); err != nil {
+			return err
+		}
 	}
-	table.Render()
+	if err := table.Render(); err != nil {
+		return err
+	}
 	return nil
 }
 
@@ -301,8 +325,12 @@ func PrintSlice(input any) error {
 	table := tablewriter.NewWriter(os.Stdout)
 	table.Header([]string{"#", "Value"})
 	for i := 0; i < v.Len(); i++ {
-		table.Append([]string{fmt.Sprintf("%d", i), fmt.Sprintf("%v", v.Index(i).Interface())})
+		if err := table.Append([]string{fmt.Sprintf("%d", i), fmt.Sprintf("%v", v.Index(i).Interface())}); err != nil {
+			return err
+		}
 	}
-	table.Render()
+	if err := table.Render(); err != nil {
+		return err
+	}
 	return nil
 }
