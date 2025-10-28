@@ -1,3 +1,4 @@
+// Package ginutils provides helpers for extracting and decoding JWTs from gin.Context.
 package ginutils
 
 import (
@@ -11,7 +12,7 @@ import (
 func ExtractJwtClaimsFromContext(c *gin.Context, secretKey []byte) (map[string]interface{}, error) {
 	bearerHeader := c.GetHeader("Authorization")
 	if len(bearerHeader) < 8 {
-		return nil, fmt.Errorf("Invalid credentials")
+		return nil, fmt.Errorf("invalid credentials")
 	}
 	bearerToken := bearerHeader[7:]
 	return utilities.ExtractJwtClaims(bearerToken, secretKey)
@@ -21,7 +22,7 @@ func ExtractJwtClaimsFromContext(c *gin.Context, secretKey []byte) (map[string]i
 func ExtractJwtClaimsFromContextInto(c *gin.Context, secretKey []byte, out interface{}) error {
 	bearerHeader := c.GetHeader("Authorization")
 	if len(bearerHeader) < 8 {
-		return fmt.Errorf("Invalid credentials")
+		return fmt.Errorf("invalid credentials")
 	}
 	bearerToken := bearerHeader[7:]
 	return utilities.ExtractJwtClaimsInto(bearerToken, secretKey, out)
@@ -33,7 +34,7 @@ func ExtractJwtClaimsFromContextInto(c *gin.Context, secretKey []byte, out inter
 func ExtractCookieJwtClaimsFromContext(c *gin.Context, secretKey []byte) (map[string]interface{}, error) {
 	token, err := c.Cookie("cxjwt")
 	if err != nil {
-		return nil, fmt.Errorf("Invalid credentials")
+		return nil, fmt.Errorf("invalid credentials")
 	}
 	return utilities.ExtractJwtClaims(token, secretKey)
 }
@@ -42,7 +43,7 @@ func ExtractCookieJwtClaimsFromContext(c *gin.Context, secretKey []byte) (map[st
 func ExtractCookieJwtClaimsFromContextInto(c *gin.Context, secretKey []byte, out interface{}) error {
 	token, err := c.Cookie("cxjwt")
 	if err != nil {
-		return fmt.Errorf("Invalid credentials")
+		return fmt.Errorf("invalid credentials")
 	}
 	return utilities.ExtractJwtClaimsInto(token, secretKey, out)
 }

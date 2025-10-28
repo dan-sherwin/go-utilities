@@ -1,3 +1,5 @@
+// Package utilities provides a collection of small, focused helper functions and type shortcuts
+// used across services, including validation, CLI/table printing, JWT, filesystem, network, and more.
 package utilities
 
 import (

@@ -9,6 +9,8 @@ import (
 )
 
 type (
+	// DbDSNConfig contains the fields used to construct a database DSN string.
+	// Fields map to host, port, database name, user, password, SSL mode and timezone.
 	DbDSNConfig struct {
 		Server   string
 		Port     int
@@ -44,7 +46,8 @@ func DbDSN(cfg DbDSNConfig) string {
 	return connstr
 }
 
-// ToValuers - Used in the creation of Where conditions
+// ToValuers converts a slice of types implementing driver.Valuer into a slice of driver.Valuer.
+// Useful for building slices for parameterized queries (e.g., WHERE IN (...)).
 func ToValuers[T driver.Valuer](in []T) []driver.Valuer {
 	out := make([]driver.Valuer, len(in))
 	for i, v := range in {
@@ -53,6 +56,8 @@ func ToValuers[T driver.Valuer](in []T) []driver.Valuer {
 	return out
 }
 
+// ConvertToJSONMap marshals the input value to JSON and unmarshals it into a datatypes.JSONMap.
+// Returns an error if marshaling or unmarshaling fails.
 func ConvertToJSONMap(input any) (datatypes.JSONMap, error) {
 	// Marshal the input to a JSON byte slice
 	bytes, err := json.Marshal(input)

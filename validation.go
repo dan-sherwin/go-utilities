@@ -85,6 +85,7 @@ func IsURL(s string) bool {
 // - at least one dot
 var fqdnLabel = regexp.MustCompile(`^[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?$`)
 
+// IsFQDN returns true if s is a fully qualified domain name per common DNS label rules.
 func IsFQDN(s string) bool {
 	s = strings.TrimSuffix(strings.TrimSpace(s), ".") // tolerate trailing dot but not required
 	if s == "" || len(s) > 253 || !strings.Contains(s, ".") {
@@ -152,14 +153,16 @@ var (
 	rePhoneLocal = regexp.MustCompile(`^[0-9]{7,15}$`)
 )
 
+// IsPhone returns true for basic phone numbers: E.164 (+8..15 digits) or national digits (7..15).
 func IsPhone(s string) bool {
 	s = strings.TrimSpace(s)
 	return rePhoneE164.MatchString(s) || rePhoneLocal.MatchString(s)
 }
 
-// IsUUID supports canonical UUID v1-5 (8-4-4-4-12 hex with hyphens).
+// IsUUID returns true if s is a canonical UUID v1–v5 (8-4-4-4-12 hex with hyphens).
 var reUUID = regexp.MustCompile(`^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[1-5][a-fA-F0-9]{3}-[aAbB89][a-fA-F0-9]{3}-[a-fA-F0-9]{12}$`)
 
+// IsUUID returns true if s matches a UUID v1–v5 in canonical form.
 func IsUUID(s string) bool { return reUUID.MatchString(strings.TrimSpace(s)) }
 
 // IsBase64 checks if s is valid base64 without requiring specific padding, ignoring whitespace.
@@ -183,9 +186,12 @@ func IsBase64(s string) bool {
 // IsHexColor validates #RGB, #RRGGBB, #RGBA, #RRGGBBAA or without leading #.
 var reHexColor = regexp.MustCompile(`^(#?)(?:[A-Fa-f0-9]{3}|[A-Fa-f0-9]{6}|[A-Fa-f0-9]{4}|[A-Fa-f0-9]{8})$`)
 
+// IsHexColor returns true if s represents a hex color in one of the supported forms:
+// #RGB, #RRGGBB, #RGBA, #RRGGBBAA (with or without the leading #).
 func IsHexColor(s string) bool { return reHexColor.MatchString(strings.TrimSpace(s)) }
 
 // IsAlphaNumeric returns true if s contains only ASCII letters and digits.
 var reAlphaNum = regexp.MustCompile(`^[A-Za-z0-9]+$`)
 
+// IsAlphaNumeric reports whether s is composed only of ASCII letters and digits.
 func IsAlphaNumeric(s string) bool { return reAlphaNum.MatchString(strings.TrimSpace(s)) }

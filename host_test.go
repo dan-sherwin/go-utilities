@@ -25,5 +25,6 @@ func TestDirCreateIfNotExists(t *testing.T) {
 }
 
 func TestAmAdmin_Smoke(t *testing.T) {
+	t.Helper()
 	_ = utilities.AmAdmin() // just ensure it doesn't panic and returns a bool
 }

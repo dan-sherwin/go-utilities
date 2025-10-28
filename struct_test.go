@@ -68,7 +68,7 @@ func TestStructFieldNames(t *testing.T) {
 	for _, n := range names {
 		found[n] = true
 	}
-	if !(found["A"] && found["B"] && found["C"]) {
+	if !found["A"] || !found["B"] || !found["C"] {
 		t.Errorf("missing expected fields in %v", names)
 	}
 }

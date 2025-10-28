@@ -16,10 +16,10 @@ func DirCreateIfNotExists(dir string) error {
 	if _, err := os.Stat(dir); os.IsNotExist(err) {
 		err := os.MkdirAll(dir, 0755)
 		if err != nil {
-			return fmt.Errorf("Failed to create directory %s: %v", dir, err)
+			return fmt.Errorf("failed to create directory %s: %v", dir, err)
 		}
 	} else if err != nil {
-		return fmt.Errorf("Failed to check directory %s: %v", dir, err)
+		return fmt.Errorf("failed to check directory %s: %v", dir, err)
 	}
 	return nil
 }

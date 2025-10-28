@@ -1,15 +1,16 @@
 package utilities_test
 
 import (
-	utilities "github.com/dan-sherwin/go-utilities"
 	"strings"
 	"testing"
+
+	utilities "github.com/dan-sherwin/go-utilities"
 )
 
 func TestGetMacAddressFromIp_InvalidAndNotFound(t *testing.T) {
 	if _, err := utilities.GetMacAddressFromIp("not-an-ip"); err == nil {
 		t.Fatalf("expected error for invalid IP input")
-	} else if !strings.Contains(err.Error(), "Invalid TV IP address") {
+	} else if !strings.Contains(err.Error(), "invalid TV IP address") {
 		t.Errorf("unexpected error message: %v", err)
 	}
 	// Use TEST-NET-1 address which should not be in local ARP cache in typical CI

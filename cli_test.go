@@ -12,19 +12,20 @@ type user struct {
 	Name string
 }
 
-type userPtr struct {
-	ID   *int
-	Name *string
-}
-
 func captureStdout(fn func() error) (string, error) {
 	old := os.Stdout
 	r, w, _ := os.Pipe()
 	os.Stdout = w
 	err := fn()
-	w.Close()
+	if cerr := w.Close(); cerr != nil && err == nil {
+		// prefer original err if present
+		err = cerr
+	}
 	os.Stdout = old
-	b, _ := io.ReadAll(r)
+	b, rerr := io.ReadAll(r)
+	if rerr != nil && err == nil {
+		err = rerr
+	}
 	return string(b), err
 }
 
