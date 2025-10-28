@@ -1,5 +1,7 @@
 # Utilities for Go
 
+[![Go Reference](https://pkg.go.dev/badge/github.com/dan-sherwin/go-utilities.svg)](https://pkg.go.dev/github.com/dan-sherwin/go-utilities) [![Go Reference (ginutils)](https://pkg.go.dev/badge/github.com/dan-sherwin/go-utilities/ginutils.svg)](https://pkg.go.dev/github.com/dan-sherwin/go-utilities/ginutils) [![Go Report Card](https://goreportcard.com/badge/github.com/dan-sherwin/go-utilities)](https://goreportcard.com/report/github.com/dan-sherwin/go-utilities) [![CI](https://github.com/dan-sherwin/go-utilities/actions/workflows/ci.yml/badge.svg)](https://github.com/dan-sherwin/go-utilities/actions/workflows/ci.yml) [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE) [![Release](https://img.shields.io/github/v/tag/dan-sherwin/go-utilities?label=release)](https://github.com/dan-sherwin/go-utilities/tags)
+
 A small, focused collection of helper functions and type shortcuts frequently used across services. Utilities are grouped around a few common themes:
 
 - Pointers and generics helpers
@@ -26,7 +28,7 @@ This repository contains:
 - Gin helpers:
   go get github.com/dan-sherwin/go-utilities/ginutils
 
-Go version: see go.mod (currently go 1.23).
+Go version: see go.mod (currently Go 1.24).
 
 ## Quick Start
 
@@ -277,6 +279,14 @@ Example:
 - Table printing: Helpers write to os.Stdout using tablewriter. In non-TTY contexts, ensure stdout capture is acceptable.
 - Network/ARP: GetMacAddressFromIp relies on local ARP cache; may fail if the IP has not been resolved on the local network.
 - DSN: DbDSN builds a PostgreSQL-like connection string; adjust as needed for your driver.
+
+## Versioning
+
+This project follows Semantic Versioning. See CHANGELOG.md for a human‑friendly list of notable changes. The next release is expected to be v1.2.3 (documentation and CI only).
+
+## License
+
+Released under the MIT License. See LICENSE for the full text.
 
 ## Contributing
 
