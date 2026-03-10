@@ -47,7 +47,9 @@ func TestFileJSON(t *testing.T) {
 	}
 
 	tempFile := "test_file_json.json"
-	defer os.Remove(tempFile)
+	defer func() {
+		_ = os.Remove(tempFile)
+	}()
 
 	input := TestStruct{Foo: "bar"}
 	err := ToJSONFile(input, tempFile)
