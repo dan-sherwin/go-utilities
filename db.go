@@ -74,3 +74,22 @@ func ConvertToJSONMap(input any) (datatypes.JSONMap, error) {
 
 	return jsonMap, nil
 }
+
+// ConvertToJSON marshals the input value to JSON and unmarshals it into a datatypes.JSON.
+// Returns an error if marshaling or unmarshaling fails.
+func ConvertToJSON(input any) (datatypes.JSON, error) {
+	// Marshal the input to a JSON byte slice
+	bytes, err := json.Marshal(input)
+	if err != nil {
+		return nil, fmt.Errorf("failed to marshal to JSON: %w", err)
+	}
+
+	jsonData := datatypes.JSON{}
+	// Unmarshal the JSON bytes into the JSON
+
+	if err := jsonData.UnmarshalJSON(bytes); err != nil {
+		return nil, fmt.Errorf("failed to unmarshal to JSON: %w", err)
+	}
+
+	return jsonData, nil
+}
